@@ -2,5 +2,6 @@ const React = require('react')
 const ReactDom = require('react-dom')
 
 const WordRelay = require('./WordRelay')
+const NumberBaseBall = require('./NumberBaseBall')
 
-ReactDom.render(<WordRelay/>, document.querySelector('#root'))
+ReactDom.render(<NumberBaseBall/>, document.querySelector('#root'))
