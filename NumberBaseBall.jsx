@@ -26,10 +26,11 @@ const NumberBaseBall = () => {
 
     const onClickHandler = () => {
         if(myNumber===yourNumber.join('')){
-            setTries((prevState)=>([
+            setTries((prevState)=>{
+                return [
                 ...tries, {try: yourNumber, result:'홈런'}
                 
-            ]))
+            ]})
             alert('새로운 게임 시작')
             setMyNumber('')
             setYourNumber(getNumbers())
@@ -62,7 +63,8 @@ const NumberBaseBall = () => {
     return (
         <>
             <h1>숫자야구</h1>
-            <input maxLength={4} ref={input} type="number" onChange={onChangeHandler} value={myNumber} onKeyPress={onPressEnter}/>
+            <input maxLength="4" ref={input} type="number" onChange={onChangeHandler} 
+                value={myNumber} onKeyPress={onPressEnter}/>
             <button onClick={onClickHandler}>제출</button>
             <ul>
             {tries.map((value, index)=>{
