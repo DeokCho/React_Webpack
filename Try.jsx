@@ -1,14 +1,10 @@
 const React = require('react')
 
-const Try = (props) => {
+const Try = ({tryInfo}) => {
     return (
         <li>
-            <div>{props.fruit.fruit} - {props.index}</div>
-            <div>컨텐츠</div>
-            <div>컨텐츠</div>
-            <div>컨텐츠</div>
-            <div>컨텐츠</div>
-            <div>컨텐츠</div>
+            <div>{tryInfo.try}</div>
+            <div>{tryInfo.result}</div>
         </li>
     )
 }

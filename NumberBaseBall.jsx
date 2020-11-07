@@ -3,14 +3,20 @@ const {useState, useRef} = React
 const Try = require('./Try')
 
 const getNumbers = () => {
-
+    const candidate = [1,2,3,4,5,6,7,8,9]
+    const array = []
+    for(let i=0; i<4; i +=1){
+        const chosen = candidate.splice(Math.floor(Math.random()*(9-i)), 1)[0]
+        array.push(chosen)
+    }
+    return array
 }
 
 const NumberBaseBall = () => {
-    const [myNumber, setMyNumber] = useState(0)
-    const [yourNumber, setYourNumber] = useState(getNumbers)
-    const [result, setResult] = useState()
-    const [tries, setTries] = useState()
+    const [myNumber, setMyNumber] = useState('')
+    const [yourNumber, setYourNumber] = useState(getNumbers())
+    const [result, setResult] = useState('')
+    const [tries, setTries] = useState([])
     const input = useRef()
 
     const onChangeHandler = e => {
@@ -18,21 +24,34 @@ const NumberBaseBall = () => {
         setMyNumber(e.currentTarget.value)
     }
 
-    const evalutate = () => {
-        for(let i=0; i<3; i++){
-            if(myNumber[i] === yourNumber[i]){
-            }else if(yourNumber.includes(myNumber[i])){
-            }else{
-            }
-        }
-    }
     const onClickHandler = () => {
-        evalutate()
-        if(myNumber===yourNumber){
-            setResult("정답"); 
+        if(myNumber===yourNumber.join('')){
+            setTries((prevState)=>([
+                ...tries, {try: yourNumber, result:'홈런'}
+                
+            ]))
+            alert('새로운 게임 시작')
             setMyNumber('')
+            setYourNumber(getNumbers())
+            setTries([])
         } else{
-            setResult("오답")
+            const yourNumberArray = myNumber.split('').map((value)=>parseInt(value))
+            let strike = 0
+            let ball = 0
+            if(tries.length >=9){
+                setResult(`10번 오답. 정답은 ${yourNumber.join('')}`)
+            } else{
+                for(let i=0; i<4; i+=1){
+                    if(yourNumberArray[i] === yourNumber[i]){
+                        strike +=1
+                    } else if(yourNumber.includes(yourNumberArray[i])){
+                        ball +=1
+                    }
+                }
+                setTries((prevState)=>([
+                    ...tries, {try:myNumber, result: `${strike} 스트라이크 ${ball} 볼`}
+                ]))
+            }
             setMyNumber('')
         } 
         input.current.focus()
@@ -40,24 +59,17 @@ const NumberBaseBall = () => {
     const onPressEnter = e => {
         e.key === 'Enter' ? onClickHandler() : null
     }
-
-    const fruits = [
-        { fruit: '사과', beverage: '사과쥬스' },
-        { fruit: '딸기', beverage: '딸기우유' },
-        { fruit: '오렌지', beverage: '오렌지쥬스' }
-    ]
     return (
         <>
             <h1>숫자야구</h1>
             <input maxLength={4} ref={input} type="number" onChange={onChangeHandler} value={myNumber} onKeyPress={onPressEnter}/>
             <button onClick={onClickHandler}>제출</button>
             <ul>
-            {fruits.map((fruit, index)=>{
+            {tries.map((value, index)=>{
                 return (
                     <Try 
-                    key={fruit.fruit+fruit.beverage}
-                    fruit={fruit}
-                    index={index}
+                    key={value+(index+1)}
+                    tryInfo={value}
                     />
                 )
             })}
