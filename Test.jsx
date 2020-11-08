@@ -9,6 +9,7 @@ class Test extends Component {
 
         })
     }
+    
     shouldComponentUpdate(nextProps, nextState, nextContext){
         if(this.state.counter !== nextState.counter){
             return true

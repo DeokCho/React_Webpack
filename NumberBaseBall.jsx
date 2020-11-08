@@ -1,5 +1,5 @@
 const React = require('react')
-const {useState, useRef} = React
+const {useState, useRef, memo} = React
 const Try = require('./Try')
 
 const getNumbers = () => {
@@ -12,7 +12,7 @@ const getNumbers = () => {
     return array
 }
 
-const NumberBaseBall = () => {
+const NumberBaseBall = memo(() => {
     const [myNumber, setMyNumber] = useState('')
     const [yourNumber, setYourNumber] = useState(getNumbers())
     const [result, setResult] = useState('')
@@ -81,6 +81,6 @@ const NumberBaseBall = () => {
             {result}
         </>
     )
-}
+})
 
 module.exports = NumberBaseBall

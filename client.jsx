@@ -5,4 +5,4 @@ const WordRelay = require('./WordRelay')
 const NumberBaseBall = require('./NumberBaseBall')
 import Test from './Test'
 
-ReactDom.render(<Test/>, document.querySelector('#root'))
+ReactDom.render(<NumberBaseBall/>, document.querySelector('#root'))
