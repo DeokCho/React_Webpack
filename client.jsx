@@ -5,5 +5,6 @@ const WordRelay = require('./WordRelay')
 const NumberBaseBall = require('./NumberBaseBall')
 import Test from './Test'
 import ResponseCheck from './ResponseCheck'
+import RSP from './RSP'
 
-ReactDom.render(<ResponseCheck/>, document.querySelector('#root'))
+ReactDom.render(<RSP/>, document.querySelector('#root'))
